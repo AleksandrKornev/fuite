@@ -49,11 +49,11 @@ async function runOnFreshPage (browser, pageUrl, setup, teardown, waitForIdle, r
 }
 
 async function analyzeOptions (options) {
-  const { debug, heapsnapshot, progress } = options
+  const { debug, heapsnapshot, progress, defaultViewport } = options
   const args = Array.isArray(options.browserArgs) ? options.browserArgs : []
   const browser = await puppeteer.launch({
     headless: !debug,
-    defaultViewport: { width: 1280, height: 800 },
+    defaultViewport: defaultViewport || { width: 1200, height: 800 },
     args,
     ...(debug && { protocolTimeout: MAX_SIGNED_INT32 }) // avoid timeouts when you're trying to debug
   })
